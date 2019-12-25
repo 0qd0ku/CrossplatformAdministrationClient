@@ -1,9 +1,16 @@
 package ru.vkr.service.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.vkr.model.TaskPackDto;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+import ru.vkr.model.TaskData;
+import ru.vkr.model.TaskIdPackDto;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -11,6 +18,7 @@ public class RestService {
 
     private RestTemplate restTemplate;
 
+    @Value("${service.task.url}")
     private String serviceUrl;
 
     @Autowired
@@ -18,9 +26,29 @@ public class RestService {
         this.restTemplate = restTemplate;
     }
 
-    public TaskPackDto postTaskRequest() {
+    public TaskIdPackDto getTaskIds(Long clientId) {
         final String endPointUrl = serviceUrl;
-        return getRequest(endPointUrl, TaskPackDto.class);
+        UriComponents url = buildUrl("clientId", clientId, endPointUrl);
+        return getRequest(url.toUriString(), TaskIdPackDto.class);
+    }
+
+    public TaskData getTaskDataById(Long taskId) {
+        final String endPointUrl = serviceUrl;
+        UriComponents url = buildUrl("taskId", taskId, endPointUrl);
+        return getRequest(url.toUriString(), TaskData.class);
+    }
+
+    /**
+     * Сгенерировать URL с парамтерами для get запроса
+     * @param key        ключ для подстановки в адрес строки
+     * @param param      парамтеры запроса
+     * @param requestUrl конечная точка запроса
+     * @return URL с парамтерами для get запроса
+     */
+    private UriComponents buildUrl(Object key, Object param, String requestUrl) {
+        Map<Object, Object> urlParams = new HashMap<>();
+        urlParams.put(key, param);
+        return UriComponentsBuilder.fromHttpUrl(requestUrl).buildAndExpand(urlParams);
     }
 
     /**

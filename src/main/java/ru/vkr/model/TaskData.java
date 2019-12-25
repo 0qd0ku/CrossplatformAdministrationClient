@@ -1,8 +1,5 @@
 package ru.vkr.model;
 
-import ru.vkr.model.enums.OS;
-import ru.vkr.model.enums.OSType;
-
 import java.util.Objects;
 
 public class TaskData {
