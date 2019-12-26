@@ -1,13 +1,14 @@
 package ru.vkr;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import ru.vkr.service.WorkScheduler;
 
-@ComponentScan(basePackages = "ru.vkr")
 @EnableScheduling
+@SpringBootApplication
 public class ApplicationMain {
 
     public static void main(String[] args) {

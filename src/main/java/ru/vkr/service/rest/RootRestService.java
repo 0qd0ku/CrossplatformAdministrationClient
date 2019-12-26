@@ -2,7 +2,6 @@ package ru.vkr.service.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
@@ -35,17 +34,13 @@ public class RootRestService {
     private void setHeaderIfNeed(StackTraceElement stackTraceElement, HttpRequest request) {
         try {
             Method[] methods = Class.forName(stackTraceElement.getClassName()).getMethods();
-            int count = 0;
             for (Method method : methods) {
                 WithoutAuth annotation = method.getDeclaredAnnotation(WithoutAuth.class);
-                if (annotation != null && method.equals(methods[count-1])) { //проверяем что в стеке вызовов предыдущий метод от текущего был помечен этой аннотацией
-                    if (!annotation.offAuth()) {
-                        if (sessionData != null) {
-                            request.getHeaders().set("Authentication", sessionData.getToken());
-                        }
+                if (annotation != null && method.equals(methods[methods.length - 2])) { //проверяем что в стеке вызовов предыдущий метод от текущего был помечен этой аннотацией
+                    if (!annotation.offAuth() && sessionData != null) {
+                        request.getHeaders().set("Authentication", sessionData.getToken());
                     }
                 }
-                ++count;
             }
         } catch (ClassNotFoundException e) {
             LOGGER.error("Error while add headers", e);
