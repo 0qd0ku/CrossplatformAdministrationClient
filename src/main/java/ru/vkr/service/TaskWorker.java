@@ -19,7 +19,8 @@ public class TaskWorker {
     }
 
 
-    public void work(){
+    public void work() {
+        restService.checkin();
         TaskIdPackDto taskIdPackDto = restService.getTaskIds();
         List<Long> taskDataList = taskIdPackDto.getTaskIdList();
         taskDataList.forEach(this::workByTaskId);

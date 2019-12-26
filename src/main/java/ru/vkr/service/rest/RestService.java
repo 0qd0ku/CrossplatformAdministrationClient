@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import ru.vkr.model.ClientData;
+import ru.vkr.model.SessionData;
 import ru.vkr.model.TaskData;
 import ru.vkr.model.TaskIdPackDto;
 
@@ -14,22 +16,27 @@ import java.util.Map;
 
 
 @Service
-public class RestService {
+public class RestService extends RootRestService {
 
-    private RestTemplate restTemplate;
 
     @Value("${service.task.url}")
     private String serviceUrl;
 
     @Autowired
     public RestService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+        super(restTemplate);
     }
 
-    public TaskIdPackDto getTaskIds(Long clientId) {
+    @WithoutAuth(offAuth = true)
+    public SessionData checkin(ClientData clientData) {
         final String endPointUrl = serviceUrl;
-        UriComponents url = buildUrl("clientId", clientId, endPointUrl);
-        return getRequest(url.toUriString(), TaskIdPackDto.class);
+        sessionData = postRequest(endPointUrl, clientData, SessionData.class);
+        return sessionData;
+    }
+
+    public TaskIdPackDto getTaskIds() {
+        final String endPointUrl = serviceUrl;
+        return getRequest(endPointUrl, TaskIdPackDto.class);
     }
 
     public TaskData getTaskDataById(Long taskId) {
