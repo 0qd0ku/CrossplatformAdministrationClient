@@ -66,6 +66,7 @@ public class RestService extends RootRestService {
      * @param <T>           параметризированный тип, для типа ответа
      * @return ответ
      */
+    @CheckAuthorisation
     private <T> T postRequest(String url, Object request, Class<T> responseType) {
        return restTemplate.postForObject(url, request, responseType);
     }
@@ -77,6 +78,7 @@ public class RestService extends RootRestService {
      * @param <T>           параметризированный тип, для типа ответа
      * @return ответ
      */
+    @CheckAuthorisation
     private <T> T getRequest(String url, Class<T> responseType) {
         return restTemplate.getForObject(url, responseType);
     }

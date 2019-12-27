@@ -6,7 +6,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
-import ru.vkr.config.RootConfig;
 import ru.vkr.model.SessionData;
 
 import java.io.IOException;
@@ -15,7 +14,8 @@ import java.util.Arrays;
 
 public class RootRestService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RootConfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RootRestService.class);
+    private static final int COUNT_FOR_NEXT_METHOD_IN_TRACE = 1;
 
     protected SessionData sessionData;
     protected RestTemplate restTemplate;
@@ -33,12 +33,16 @@ public class RootRestService {
 
     private void setHeaderIfNeed(StackTraceElement stackTraceElement, HttpRequest request) {
         try {
-            Method[] methods = Class.forName(stackTraceElement.getClassName()).getMethods();
+            Method[] methods = Class.forName(stackTraceElement.getClassName()).getDeclaredMethods();
             for (Method method : methods) {
-                WithoutAuth annotation = method.getDeclaredAnnotation(WithoutAuth.class);
-                if (annotation != null && method.equals(methods[methods.length - 2])) { //проверяем что в стеке вызовов предыдущий метод от текущего был помечен этой аннотацией
-                    if (!annotation.offAuth() && sessionData != null) {
-                        request.getHeaders().set("Authentication", sessionData.getToken());
+                method.setAccessible(true);
+                CheckAuthorisation authorisation = method.getDeclaredAnnotation(CheckAuthorisation.class);
+                if (authorisation != null) {
+                    WithoutAuth annotation = methods[COUNT_FOR_NEXT_METHOD_IN_TRACE].getDeclaredAnnotation(WithoutAuth.class);
+                    if (annotation != null) {
+                        if (!annotation.offAuth() && sessionData != null) {
+                            request.getHeaders().set("Authentication", sessionData.getToken());
+                        }
                     }
                 }
             }
