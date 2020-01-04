@@ -5,19 +5,28 @@ public enum OS {
     LINUX("Linux"),
     MACOS("MacOS");
 
-    private String os;
-    OS(String os) {
-        this.os = os;
+    private final String name;
+    OS(String name) {
+        this.name = name;
     }
 
-    public String getValue() {
-        return os;
+    public String getName() {
+        return name;
+    }
+
+    public static OS getOsByName(String osName) {
+        for (OS os : OS.values()) {
+            if (osName.contains(os.name)) {
+                return os;
+            }
+        }
+        throw new IllegalArgumentException("Cant find os type aby name");
     }
 
     @Override
     public String toString() {
         return "OS{" +
-                "os='" + os + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }

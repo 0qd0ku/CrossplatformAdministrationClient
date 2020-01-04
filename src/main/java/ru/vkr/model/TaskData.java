@@ -1,6 +1,5 @@
 package ru.vkr.model;
 
-import java.util.Objects;
 
 public class TaskData {
     private Long id;
@@ -11,6 +10,8 @@ public class TaskData {
     private OSType osType;
     private String pathToRunFile;
     private String torrentFile;
+
+    public TaskData() {}
 
     public TaskData(Long id, String name, String taskType, String version, OS os, OSType osType, String pathToRunFile, String torrentFile) {
         this.id = id;
@@ -88,36 +89,16 @@ public class TaskData {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TaskData)) return false;
-        TaskData that = (TaskData) o;
-        return id.equals(that.id) &&
-                getName().equals(that.getName()) &&
-                getTaskType() == that.getTaskType() &&
-                getVersion().equals(that.getVersion()) &&
-                getOs().getValue() == that.getOs().getValue() &&
-                getOsType().getValue() == that.getOsType().getValue() &&
-                getPathToRunFile().equals(that.getPathToRunFile()) &&
-                getTorrentFile().equals(that.getTorrentFile());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, getName(), getTaskType(), getVersion(), getOs().getValue(), getOsType().getValue(), getPathToRunFile(), getTorrentFile());
-    }
-
-    @Override
     public String toString() {
-        return "TaskDataDto{" +
+        return "TaskData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", taskType=" + taskType +
+                ", taskType='" + taskType + '\'' +
                 ", version='" + version + '\'' +
-                ", os=" + os.getValue() +
-                ", osType=" + osType.getValue() +
+                ", os=" + os +
+                ", osType=" + osType +
                 ", pathToRunFile='" + pathToRunFile + '\'' +
-                ", torrentFile=" + torrentFile +
+                ", torrentFile='" + torrentFile + '\'' +
                 '}';
     }
 }

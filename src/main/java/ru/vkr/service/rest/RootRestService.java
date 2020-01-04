@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+/**
+ * Основной сервис для отправки Rest запросов на сервис
+ */
 public class RootRestService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RootRestService.class);
-    private static final int COUNT_FOR_NEXT_METHOD_IN_TRACE = 1;
 
     protected SessionData sessionData;
     protected RestTemplate restTemplate;
@@ -25,29 +27,51 @@ public class RootRestService {
         restTemplate.getInterceptors().add(this::intercept);
     }
 
+    /**
+     * Метод добавляет к запросу хеадер авторизация (в котором енсть токен) в зависимости от необходимости
+     * @param request   запрос
+     * @param body      тело запроса
+     * @param execution контекст http запроса
+     * @return          ответ сервера
+     * @throws IOException ошибка вывода
+     */
     private ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         StackTraceElement[] stackTraces = Thread.currentThread().getStackTrace();
-        Arrays.stream(stackTraces).forEach(stackTraceElement -> setHeaderIfNeed(stackTraceElement, request));
+        Arrays.stream(stackTraces).forEach(stackTraceElement -> findAutAnnotation(stackTraceElement, request));
         return execution.execute(request, body);
     }
 
-    private void setHeaderIfNeed(StackTraceElement stackTraceElement, HttpRequest request) {
+    /**
+     * Поиск аннотации, где нужно опустить хеадер авторизации и оттправить запрос без него
+     * @param stackTraceElement стек вызовов
+     * @param request запрос
+     */
+    private void findAutAnnotation(StackTraceElement stackTraceElement, HttpRequest request) {
         try {
             Method[] methods = Class.forName(stackTraceElement.getClassName()).getDeclaredMethods();
             for (Method method : methods) {
                 method.setAccessible(true);
                 CheckAuthorisation authorisation = method.getDeclaredAnnotation(CheckAuthorisation.class);
-                if (authorisation != null) {
-                    WithoutAuth annotation = methods[COUNT_FOR_NEXT_METHOD_IN_TRACE].getDeclaredAnnotation(WithoutAuth.class);
-                    if (annotation != null) {
-                        if (!annotation.offAuth() && sessionData != null) {
-                            request.getHeaders().set("Authentication", sessionData.getToken());
-                        }
-                    }
-                }
+                setHeaderIfNeed(authorisation, request);
             }
         } catch (ClassNotFoundException e) {
             LOGGER.error("Error while add headers", e);
+        }
+    }
+
+    /**
+     * Установка хеадера авторизации если есть необходимость
+     * @param authorisation аннотация авотиризации
+     * @param request запрос
+     */
+    private void setHeaderIfNeed(CheckAuthorisation authorisation, HttpRequest request) {
+        if (authorisation != null) {
+            if (authorisation.disable()) {
+                return;
+            }
+        }
+        if (sessionData != null) {
+            request.getHeaders().set("Authentication", sessionData.getToken());
         }
     }
 }

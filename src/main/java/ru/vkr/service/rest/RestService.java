@@ -27,7 +27,7 @@ public class RestService extends RootRestService {
         super(restTemplate);
     }
 
-    @WithoutAuth(offAuth = true)
+    @CheckAuthorisation(disable = true)
     public SessionData checkin(ClientData clientData) {
         final String endPointUrl = serviceUrl;
         sessionData = postRequest(endPointUrl, clientData, SessionData.class);
@@ -66,7 +66,6 @@ public class RestService extends RootRestService {
      * @param <T>           параметризированный тип, для типа ответа
      * @return ответ
      */
-    @CheckAuthorisation
     private <T> T postRequest(String url, Object request, Class<T> responseType) {
        return restTemplate.postForObject(url, request, responseType);
     }
@@ -78,7 +77,6 @@ public class RestService extends RootRestService {
      * @param <T>           параметризированный тип, для типа ответа
      * @return ответ
      */
-    @CheckAuthorisation
     private <T> T getRequest(String url, Class<T> responseType) {
         return restTemplate.getForObject(url, responseType);
     }

@@ -1,10 +1,13 @@
 package ru.vkr.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import ru.vkr.model.TaskData;
 import ru.vkr.model.TaskIdPackDto;
 import ru.vkr.service.rest.RestService;
+import ru.vkr.util.ClientSystemInformationUtils;
 
 import java.util.List;
 
@@ -19,11 +22,18 @@ public class TaskWorker {
     }
 
 
-    public void work() {
-        restService.checkin(null);
-        TaskIdPackDto taskIdPackDto = restService.getTaskIds();
-        List<Long> taskDataList = taskIdPackDto.getTaskIdList();
-        taskDataList.forEach(this::workByTaskId);
+    public void work() throws InterruptedException {
+        try {
+            restService.checkin(ClientSystemInformationUtils.CLIENT_DATA);
+            TaskIdPackDto taskIdPackDto = restService.getTaskIds();
+            List<Long> taskDataList = taskIdPackDto.getTaskIdList();
+            taskDataList.forEach(this::workByTaskId);
+        } catch (HttpClientErrorException clEx) {
+            if (clEx.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
+                Thread.sleep(2000);
+                work();
+            }
+        }
     }
 
     public void workByTaskId(Long taskId) {
