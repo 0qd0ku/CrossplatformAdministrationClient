@@ -4,7 +4,7 @@ package ru.vkr.model;
 public class TaskData {
     private Long id;
     private String name;
-    private String taskType;
+    private TaskType taskType;
     private String version;
     private OS os;
     private OSType osType;
@@ -13,7 +13,7 @@ public class TaskData {
 
     public TaskData() {}
 
-    public TaskData(Long id, String name, String taskType, String version, OS os, OSType osType, String pathToRunFile, String torrentFile) {
+    public TaskData(Long id, String name, TaskType taskType, String version, OS os, OSType osType, String pathToRunFile, String torrentFile) {
         this.id = id;
         this.name = name;
         this.taskType = taskType;
@@ -40,11 +40,11 @@ public class TaskData {
         this.name = name;
     }
 
-    public String getTaskType() {
+    public TaskType getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(String taskType) {
+    public void setTaskType(TaskType taskType) {
         this.taskType = taskType;
     }
 
