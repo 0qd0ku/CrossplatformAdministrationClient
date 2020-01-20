@@ -63,7 +63,7 @@ public class ClientSystemInformationUtils {
                     }
                 });
             }
-        } catch (UnknownHostException | SocketException e) {
+        } catch (UnknownHostException | SocketException | NullPointerException e) {
             LOGGER.error("Error while getting mac address", e);
         }
         return macAddressBuilder.toString();

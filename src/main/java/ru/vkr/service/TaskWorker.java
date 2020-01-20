@@ -1,5 +1,7 @@
 package ru.vkr.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 @Service
 public class TaskWorker {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TaskWorker.class);
     private RestService restService;
 
     @Autowired
@@ -30,6 +33,8 @@ public class TaskWorker {
             taskDataList.forEach(this::workByTaskId);
         } catch (HttpClientErrorException clEx) {
             if (clEx.getStatusCode().equals(HttpStatus.UNAUTHORIZED)) {
+                LOGGER.error("Auth error. Service response code: " + clEx.getStatusCode()
+                        + ". Response message: " + clEx.getResponseBodyAsString());
                 Thread.sleep(2000);
                 work();
             }

@@ -1,8 +1,5 @@
 package ru.vkr.model;
 
-import java.util.List;
-import java.util.Objects;
-
 /**
  * Класс запрос клиент содержит информацию о клиенте
  */

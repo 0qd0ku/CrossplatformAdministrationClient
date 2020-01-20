@@ -29,18 +29,18 @@ public class RestService extends RootRestService {
 
     @CheckAuthorisation(disable = true)
     public SessionData checkin(ClientData clientData) {
-        final String endPointUrl = serviceUrl;
+        String endPointUrl = serviceUrl + "/api/client/checkin";
         sessionData = postRequest(endPointUrl, clientData, SessionData.class);
         return sessionData;
     }
 
     public TaskIdPackDto getTaskIds() {
-        final String endPointUrl = serviceUrl;
+        String endPointUrl = serviceUrl;
         return getRequest(endPointUrl, TaskIdPackDto.class);
     }
 
     public TaskData getTaskDataById(Long taskId) {
-        final String endPointUrl = serviceUrl;
+        String endPointUrl = serviceUrl;
         UriComponents url = buildUrl("taskId", taskId, endPointUrl);
         return getRequest(url.toUriString(), TaskData.class);
     }
