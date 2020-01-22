@@ -9,8 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ru.vkr.model.ClientData;
 import ru.vkr.model.SessionData;
 import ru.vkr.model.TaskData;
-import ru.vkr.model.TaskIdPackDto;
+import ru.vkr.model.dto.TaskPackDto;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,13 +35,13 @@ public class RestService extends RootRestService {
         return sessionData;
     }
 
-    public TaskIdPackDto getTaskIds() {
+    public TaskPackDto getTaskIds() {
         String endPointUrl = serviceUrl;
-        return getRequest(endPointUrl, TaskIdPackDto.class);
+        return getRequest(endPointUrl, TaskPackDto.class);
     }
 
     public TaskData getTaskDataById(Long taskId) {
-        String endPointUrl = serviceUrl;
+        String endPointUrl = serviceUrl + "/api/client/tasks";
         UriComponents url = buildUrl("taskId", taskId, endPointUrl);
         return getRequest(url.toUriString(), TaskData.class);
     }
