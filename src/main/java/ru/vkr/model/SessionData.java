@@ -1,6 +1,7 @@
 package ru.vkr.model;
 
 public class SessionData {
+
     public enum SessionType {
         ADMIN(1, "admin"), CLIENT(2, "client");
 
@@ -38,6 +39,8 @@ public class SessionData {
                     '}';
         }
     }
+
+    private Long clientId;
     private String token;
     private SessionType sessionType;
 
@@ -57,10 +60,20 @@ public class SessionData {
         this.sessionType = sessionType;
     }
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public SessionData setClientId(Long clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "SessionDataDto{" +
-                "token='" + token + '\'' +
+        return "SessionData{" +
+                "clientId=" + clientId +
+                ", token='" + token + '\'' +
                 ", sessionType=" + sessionType +
                 '}';
     }

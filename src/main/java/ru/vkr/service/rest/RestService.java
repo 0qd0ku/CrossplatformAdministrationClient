@@ -29,19 +29,19 @@ public class RestService extends RootRestService {
     }
 
     @CheckAuthorisation(disable = true)
-    public SessionData checkin(ClientData clientData) {
+    public void checkin(ClientData clientData) {
         String endPointUrl = serviceUrl + "/api/client/checkin";
         sessionData = postRequest(endPointUrl, clientData, SessionData.class);
-        return sessionData;
     }
 
     public TaskPackDto getTaskIds() {
-        String endPointUrl = serviceUrl;
-        return getRequest(endPointUrl, TaskPackDto.class);
+        String endPointUrl = serviceUrl + "/api/client/tasks";
+        UriComponents url = buildUrl("clientId", sessionData.getClientId(), endPointUrl);
+        return getRequest(url.toUriString(), TaskPackDto.class);
     }
 
     public TaskData getTaskDataById(Long taskId) {
-        String endPointUrl = serviceUrl + "/api/client/tasks";
+        String endPointUrl = serviceUrl + "/api/client/get-task";
         UriComponents url = buildUrl("taskId", taskId, endPointUrl);
         return getRequest(url.toUriString(), TaskData.class);
     }
@@ -54,9 +54,7 @@ public class RestService extends RootRestService {
      * @return URL с парамтерами для get запроса
      */
     private UriComponents buildUrl(Object key, Object param, String requestUrl) {
-        Map<Object, Object> urlParams = new HashMap<>();
-        urlParams.put(key, param);
-        return UriComponentsBuilder.fromHttpUrl(requestUrl).buildAndExpand(urlParams);
+        return UriComponentsBuilder.fromHttpUrl(requestUrl).queryParam(key.toString(), param.toString()).build();
     }
 
     /**

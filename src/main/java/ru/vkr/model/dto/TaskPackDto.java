@@ -7,9 +7,10 @@ import java.util.List;
  */
 public class TaskPackDto {
 
-
     private List<Long> taskDatas;
 
+    public TaskPackDto() {
+    }
 
     public TaskPackDto(List<Long> taskDatas) {
         this.taskDatas = taskDatas;

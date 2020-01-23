@@ -2,6 +2,7 @@ package ru.vkr.service.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
@@ -71,7 +72,7 @@ public class RootRestService {
             }
         }
         if (sessionData != null) {
-            request.getHeaders().set("Authentication", sessionData.getToken());
+            request.getHeaders().set(HttpHeaders.AUTHORIZATION, sessionData.getToken());
         }
     }
 }

@@ -12,13 +12,6 @@ public class ClientData {
     public ClientData() {
     }
 
-    public ClientData(String hostname, OS os, OSType osType, String macAddr) {
-        this.hostname = hostname;
-        this.os = os;
-        this.osType = osType;
-        this.macAddr = macAddr;
-    }
-
     public String getHostname() {
         return hostname;
     }
