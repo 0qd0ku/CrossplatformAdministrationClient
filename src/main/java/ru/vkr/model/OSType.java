@@ -1,8 +1,8 @@
 package ru.vkr.model;
 
 public enum OSType {
-    X86("x86"),
-    X64("x64");
+    X86("X86"),
+    X64("X64");
 
     private final String name;
 
