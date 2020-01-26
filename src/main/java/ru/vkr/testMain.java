@@ -1,7 +1,5 @@
 package ru.vkr;
 
-import ru.vkr.model.TaskType;
-import ru.vkr.service.TaskLoader;
 
 import java.io.File;
 

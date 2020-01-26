@@ -22,7 +22,6 @@ public class ClientSystemInformationUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientSystemInformationUtils.class);
     private static final String OS_NAME_PROP = "os.name";
     private static final String OS_ARCH_PROP = "os.arch";
-    private static final String USER_NAME_PROP = "user.name";
 
     private static final String MAC_ADDR_FORMAT = "%02X";
     private static final String MAC_ADDR_SEPARATOR = ":";
@@ -40,7 +39,11 @@ public class ClientSystemInformationUtils {
         clientData.setOs(OS.getOsByName(System.getProperty(OS_NAME_PROP)));
         clientData.setMacAddr(getMacAddress());
         clientData.setOsType(OSType.spotOSType(System.getProperty(OS_ARCH_PROP)));
-        clientData.setHostname(System.getProperty(USER_NAME_PROP));
+        try {
+            clientData.setHostname(InetAddress.getLocalHost().getHostName());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         return clientData;
     }
 
@@ -65,7 +68,7 @@ public class ClientSystemInformationUtils {
                 });
             }
         } catch (UnknownHostException | SocketException | NullPointerException e) {
-            LOGGER.error("Error while getting mac address", e);
+//            LOGGER.error("Error while getting mac address", e);
         }
         return macAddressBuilder.toString();
     }
