@@ -48,14 +48,16 @@ public class RootRestService {
      * @param request запрос
      */
     private void findAutAnnotation(StackTraceElement stackTraceElement, HttpRequest request) {
-        try {
-            Method[] methods = Class.forName(stackTraceElement.getClassName()).getDeclaredMethods();
-            for (Method method : methods) {
-                CheckAuthorisation authorisation = method.getDeclaredAnnotation(CheckAuthorisation.class);
-                setHeaderIfNeed(authorisation, request);
+        if (!request.getURI().toString().contains("checkin")) {
+            try {
+                Method[] methods = Class.forName(stackTraceElement.getClassName()).getDeclaredMethods();
+                for (Method method : methods) {
+                    CheckAuthorisation authorisation = method.getDeclaredAnnotation(CheckAuthorisation.class);
+                    setHeaderIfNeed(authorisation, request);
+                }
+            } catch (ClassNotFoundException e) {
+                LOGGER.error("Error while add headers", e);
             }
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("Error while add headers", e);
         }
     }
 

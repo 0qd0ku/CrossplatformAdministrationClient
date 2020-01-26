@@ -23,7 +23,7 @@ public class TaskLoader {
         if (task == null) {
             return;
         }
-        File dir = new File(".\\catch\\tasks\\" + task.getId());
+        File dir = new File("./catch/tasks/" + task.getId());
         if (!dir.exists()) {
             dir.mkdirs();
         }
