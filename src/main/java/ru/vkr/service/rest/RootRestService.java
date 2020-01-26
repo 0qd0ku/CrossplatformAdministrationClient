@@ -51,7 +51,6 @@ public class RootRestService {
         try {
             Method[] methods = Class.forName(stackTraceElement.getClassName()).getDeclaredMethods();
             for (Method method : methods) {
-                method.setAccessible(true);
                 CheckAuthorisation authorisation = method.getDeclaredAnnotation(CheckAuthorisation.class);
                 setHeaderIfNeed(authorisation, request);
             }

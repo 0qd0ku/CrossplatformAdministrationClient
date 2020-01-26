@@ -30,8 +30,11 @@ public class TaskWorker {
 
     public void work() throws InterruptedException {
         try {
+            LOGGER.debug("Start checkin process");
             restService.checkin(ClientSystemInformationUtils.CLIENT_DATA);
+            LOGGER.debug("Client have ben check id");
             TaskPackDto taskIdPackDto = restService.getTaskIds();
+            LOGGER.debug("Getting task list counts: {}", taskIdPackDto.getTaskDatas().size());
             List<Long> taskDataList = taskIdPackDto.getTaskDatas();
             taskDataList.forEach(this::workByTaskId);
         } catch (HttpClientErrorException clEx) {
@@ -48,10 +51,10 @@ public class TaskWorker {
 
     private void workByTaskId(Long taskId) {
         LOGGER.debug("Getting tasks by id: {}", taskId);
-        TaskData taskData = restService.getTaskDataById(taskId);
-        LOGGER.debug("Load task: {}", taskData);
         TaskStatus taskStatus = TaskStatus.DOWNLOADING;
         try {
+            TaskData taskData = restService.getTaskDataById(taskId);
+            LOGGER.debug("Load task: {}", taskData);
             restService.updateTaskStatus(taskStatus, taskId);
             taskLoader.loadTorrent(taskData);
             taskStatus = TaskStatus.INSTALLING;
