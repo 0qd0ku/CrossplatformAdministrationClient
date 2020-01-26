@@ -52,6 +52,7 @@ public class ClientSystemInformationUtils {
         StringBuilder macAddressBuilder = new StringBuilder();
         try {
             InetAddress ipAddress = InetAddress.getLocalHost();
+
             NetworkInterface networkInterface =  spotNetWorkInt(ipAddress);
             if (networkInterface != null) {
                 byte[] macAddressBytes = networkInterface.getHardwareAddress();

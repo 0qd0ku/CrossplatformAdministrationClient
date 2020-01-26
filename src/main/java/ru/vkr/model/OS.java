@@ -4,9 +4,9 @@ package ru.vkr.model;
  * Типы операционных систем
  */
 public enum OS {
-    WINDOWS("Windows"),
-    LINUX("Linux"),
-    MACOS("MacOS");
+    WINDOWS("WINDOWS"),
+    LINUX("LINUX"),
+    MACOS("MACOS");
 
     private final String name;
     OS(String name) {
