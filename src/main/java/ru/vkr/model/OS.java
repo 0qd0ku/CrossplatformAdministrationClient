@@ -19,7 +19,7 @@ public enum OS {
 
     public static OS getOsByName(String osName) {
         for (OS os : OS.values()) {
-            if (osName.equalsIgnoreCase(os.name)) {
+            if (osName.toUpperCase().contains(os.name)) {
                 return os;
             }
         }
