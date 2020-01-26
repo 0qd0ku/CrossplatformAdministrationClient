@@ -68,7 +68,7 @@ public class ClientSystemInformationUtils {
                 });
             }
         } catch (UnknownHostException | SocketException | NullPointerException e) {
-//            LOGGER.error("Error while getting mac address", e);
+            LOGGER.error("Error while getting mac address. Maybe u connect to wifi");
         }
         return macAddressBuilder.toString();
     }

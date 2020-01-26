@@ -51,17 +51,18 @@ public class RestService extends RootRestService {
 
     public void updateTaskStatus(TaskStatus taskStatus, Long taskId) {
         String endpointUrl = serviceUrl + "/api/client/task/status-toggle";
-        SimpleClientTaskDataDto simpleClientTaskDataDto = createSimplClStatData(taskStatus, taskId);
-        postRequest(endpointUrl, simpleClientTaskDataDto, String.class);
+        ClientTaskStatusDto clientTaskStatusDto = createSimplClStatData(taskStatus, taskId);
+        postRequest(endpointUrl, clientTaskStatusDto, String.class);
     }
 
-    private SimpleClientTaskDataDto createSimplClStatData(TaskStatus taskStatus, Long taskId) {
+    private ClientTaskStatusDto createSimplClStatData(TaskStatus taskStatus, Long taskId) {
         ClientTaskStatusDto clientTaskStatusDto = new ClientTaskStatusDto();
         clientTaskStatusDto.setTaskStatus(taskStatus);
         SimpleClientTaskDataDto simpleClientTaskDataDto = new SimpleClientTaskDataDto();
         simpleClientTaskDataDto.setClientId(sessionData.getClientId());
         simpleClientTaskDataDto.setTaskId(taskId);
-        return simpleClientTaskDataDto;
+        clientTaskStatusDto.setClientTaskData(simpleClientTaskDataDto);
+        return clientTaskStatusDto;
     }
 
     /**

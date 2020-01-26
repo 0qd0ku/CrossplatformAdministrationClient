@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import ru.vkr.model.TaskData;
 import ru.vkr.model.TaskStatus;
-import ru.vkr.model.dto.SimpleClientTaskDataDto;
 import ru.vkr.model.dto.TaskPackDto;
 import ru.vkr.service.rest.RestService;
 import ru.vkr.util.ClientSystemInformationUtils;
@@ -52,8 +51,8 @@ public class TaskWorker {
         TaskData taskData = restService.getTaskDataById(taskId);
         LOGGER.debug("Load task: {}", taskData);
         TaskStatus taskStatus = TaskStatus.DOWNLOADING;
-        restService.updateTaskStatus(taskStatus, taskId);
         try {
+            restService.updateTaskStatus(taskStatus, taskId);
             taskLoader.loadTorrent(taskData);
             taskStatus = TaskStatus.INSTALLING;
         } catch (Exception ex) {
