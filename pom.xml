@@ -70,7 +70,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ru.ofd.MainClass</mainClass>
+                            <mainClass>ru.vkr.ApplicationMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
