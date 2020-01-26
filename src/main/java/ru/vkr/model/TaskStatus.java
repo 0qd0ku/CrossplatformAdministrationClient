@@ -1,35 +1,42 @@
 package ru.vkr.model;
 
-public enum TaskStatus {
-    PREPARING(0, "Preparing"),
-    IN_QUEUE(1, "In queue"),
-    DOWNLOADING(2,"Downloading"),
-    INSTALLING(3,"Installing");
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-    private final int code ;
+/**
+ * Статусы задачи
+ */
+public enum TaskStatus {
+    PREPARING("Preparing"),
+    IN_QUEUE("In queue"),
+    DOWNLOADING("Downloading"),
+    ERROR_INSTALLING("Error installing"),
+    INSTALLING("Installing");
+
     private final String status;
-    TaskStatus(int code, String status) {
-        this.code = code;
+
+    TaskStatus(String status) {
         this.status = status;
     }
 
-    public String getValue() {
+    @JsonValue
+    public String getStatus() {
         return status;
     }
 
-    public static TaskStatus getByCode(int code) {
+    @JsonCreator
+    public static TaskStatus getByName(String name) {
         for (TaskStatus taskStatus : TaskStatus.values()) {
-            if (taskStatus.code == code) {
+            if (taskStatus.status.equals(name)) {
                 return taskStatus;
             }
         }
-        throw new IllegalArgumentException("Cant find status by code: " + code);
+        throw new IllegalArgumentException("Cant find status by name: " + name);
     }
 
     @Override
     public String toString() {
         return "TaskStatus{" +
-                "code=" + code +
                 ", status='" + status + '\'' +
                 '}';
     }

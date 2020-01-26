@@ -1,5 +1,8 @@
 package ru.vkr.model;
 
+/**
+ * Типы операционных систем
+ */
 public enum OS {
     WINDOWS("Windows"),
     LINUX("Linux"),

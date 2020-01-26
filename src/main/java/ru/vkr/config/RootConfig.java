@@ -19,6 +19,9 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
+/**
+ * Конфигурация приложения
+ */
 @Configuration
 @PropertySource("classpath:application.properties")
 public class RootConfig {

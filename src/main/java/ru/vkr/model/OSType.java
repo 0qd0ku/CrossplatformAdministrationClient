@@ -1,5 +1,8 @@
 package ru.vkr.model;
 
+/**
+ * Типы архитектур операционных систем
+ */
 public enum OSType {
     X86("X86"),
     X64("X64");

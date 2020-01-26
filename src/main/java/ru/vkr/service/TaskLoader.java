@@ -4,13 +4,14 @@ import com.turn.ttorrent.client.Client;
 import com.turn.ttorrent.client.SharedTorrent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.vkr.model.TaskData;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -18,29 +19,26 @@ import java.util.Objects;
 public class TaskLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskLoader.class);
 
-    public void loadTorrent(TaskData task) {
-        if (task == null)
+    public void loadTorrent(TaskData task) throws IOException, NoSuchAlgorithmException {
+        if (task == null) {
             return;
-        try {
-            File dir = new File(".\\catch\\tasks\\" + task.getId());
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            Client client = new Client(InetAddress.getLocalHost(), new SharedTorrent(Base64.getDecoder().decode(task.getTorrentFile().getBytes("UTF8")), dir));
-            client.download();
-            client.waitForCompletion();
-            run(task, dir);
-        } catch (Exception e) {
-            LOGGER.error("Error while loading torrent file", e);
         }
+        File dir = new File(".\\catch\\tasks\\" + task.getId());
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        Client client = new Client(InetAddress.getLocalHost(), new SharedTorrent(Base64.getDecoder().decode(task.getTorrentFile().getBytes("UTF8")), dir));
+        client.download();
+        client.waitForCompletion();
+        run(task, dir);
     }
 
-    private void run(TaskData task, File dir) {
-        if (task == null)
+    private void run(TaskData task, File dir) throws IOException {
+        if (task == null) {
             return;
-
+        }
         String command = "";
-        switch (task.getTaskType()) {
+        switch (task.getTaskProcessType()) {
             case BAT:
                 if (task.getPathToRunFile().endsWith(".bat") || task.getPathToRunFile().endsWith(".cmd"))
                     command = "cmd.exe /c \"" + dir.getAbsolutePath() + "\\" + task.getPathToRunFile() + "\"";
@@ -52,17 +50,13 @@ public class TaskLoader {
             case SH:
                 if (task.getPathToRunFile().endsWith(".sh"))
                     // TODO command for Linux;
-                break;
+                    break;
             case PROGRAM:
                 command = "cmd.exe /c \"" + dir.getAbsolutePath() + "\\" + task.getPathToRunFile() + "\"";
                 break;
         }
-        try {
-            if (!command.isEmpty() && !Objects.isNull(command)) {
-                Process process = Runtime.getRuntime().exec(command);
-            }
-        } catch (IOException e) {
-            LOGGER.error("Error while installing program", e);
+        if (!command.isEmpty() && !Objects.isNull(command)) {
+            Process process = Runtime.getRuntime().exec(command);
         }
     }
 }

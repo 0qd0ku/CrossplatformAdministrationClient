@@ -1,5 +1,8 @@
 package ru.vkr.model;
 
+/**
+ * Класс информации по сессии
+ */
 public class SessionData {
 
     public enum SessionType {

@@ -1,10 +1,12 @@
 package ru.vkr.model;
 
-
+/**
+ * Класс информации по задаче
+ */
 public class TaskData {
     private Long id;
     private String name;
-    private TaskType taskType;
+    private TaskProcessType taskProcessType;
     private String version;
     private OS os;
     private OSType osType;
@@ -13,10 +15,10 @@ public class TaskData {
 
     public TaskData() {}
 
-    public TaskData(Long id, String name, TaskType taskType, String version, OS os, OSType osType, String pathToRunFile, String torrentFile) {
+    public TaskData(Long id, String name, TaskProcessType taskProcessType, String version, OS os, OSType osType, String pathToRunFile, String torrentFile) {
         this.id = id;
         this.name = name;
-        this.taskType = taskType;
+        this.taskProcessType = taskProcessType;
         this.version = version;
         this.os = os;
         this.osType = osType;
@@ -40,12 +42,12 @@ public class TaskData {
         this.name = name;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
+    public TaskProcessType getTaskProcessType() {
+        return taskProcessType;
     }
 
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
+    public void setTaskProcessType(TaskProcessType taskProcessType) {
+        this.taskProcessType = taskProcessType;
     }
 
     public String getVersion() {
@@ -93,7 +95,7 @@ public class TaskData {
         return "TaskData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", taskType='" + taskType + '\'' +
+                ", taskType='" + taskProcessType + '\'' +
                 ", version='" + version + '\'' +
                 ", os=" + os +
                 ", osType=" + osType +

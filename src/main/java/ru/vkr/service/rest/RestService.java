@@ -9,6 +9,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ru.vkr.model.ClientData;
 import ru.vkr.model.SessionData;
 import ru.vkr.model.TaskData;
+import ru.vkr.model.TaskStatus;
+import ru.vkr.model.dto.ClientTaskStatusDto;
+import ru.vkr.model.dto.SimpleClientTaskDataDto;
 import ru.vkr.model.dto.TaskPackDto;
 
 import java.net.URL;
@@ -44,6 +47,21 @@ public class RestService extends RootRestService {
         String endPointUrl = serviceUrl + "/api/client/get-task";
         UriComponents url = buildUrl("taskId", taskId, endPointUrl);
         return getRequest(url.toUriString(), TaskData.class);
+    }
+
+    public void updateTaskStatus(TaskStatus taskStatus, Long taskId) {
+        String endpointUrl = serviceUrl + "/api/client/task/status-toggle";
+        SimpleClientTaskDataDto simpleClientTaskDataDto = createSimplClStatData(taskStatus, taskId);
+        postRequest(endpointUrl, simpleClientTaskDataDto, String.class);
+    }
+
+    private SimpleClientTaskDataDto createSimplClStatData(TaskStatus taskStatus, Long taskId) {
+        ClientTaskStatusDto clientTaskStatusDto = new ClientTaskStatusDto();
+        clientTaskStatusDto.setTaskStatus(taskStatus);
+        SimpleClientTaskDataDto simpleClientTaskDataDto = new SimpleClientTaskDataDto();
+        simpleClientTaskDataDto.setClientId(sessionData.getClientId());
+        simpleClientTaskDataDto.setTaskId(taskId);
+        return simpleClientTaskDataDto;
     }
 
     /**

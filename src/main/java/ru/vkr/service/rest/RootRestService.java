@@ -71,8 +71,10 @@ public class RootRestService {
                 return;
             }
         }
+        String token = "";
         if (sessionData != null) {
-            request.getHeaders().set(HttpHeaders.AUTHORIZATION, sessionData.getToken());
+            token = sessionData.getToken();
         }
+        request.getHeaders().set(HttpHeaders.AUTHORIZATION, token);
     }
 }
