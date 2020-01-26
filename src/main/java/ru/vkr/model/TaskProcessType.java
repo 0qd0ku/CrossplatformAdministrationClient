@@ -4,10 +4,10 @@ package ru.vkr.model;
  * Типы запускаемых файлов для запуска выполнения задачи
  */
 public enum TaskProcessType {
-    BAT("Bat"),
-    POWERSHELL("Powershell"),
-    PROGRAM("Program"),
-    SH("Sh");
+    BAT("BAT"),
+    POWERSHELL("POWERSHELL"),
+    PROGRAM("PROGRAM"),
+    SH("SH");
 
     private String type;
     TaskProcessType(String type) {
