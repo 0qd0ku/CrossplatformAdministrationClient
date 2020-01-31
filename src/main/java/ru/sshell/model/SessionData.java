@@ -1,4 +1,4 @@
-package ru.vkr.model;
+package ru.sshell.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

@@ -1,4 +1,4 @@
-package ru.vkr.model;
+package ru.sshell.model;
 
 /**
  * Класс запрос клиент содержит информацию о клиенте

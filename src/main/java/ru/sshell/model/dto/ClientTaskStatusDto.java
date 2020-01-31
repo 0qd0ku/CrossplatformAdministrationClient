@@ -1,6 +1,6 @@
-package ru.vkr.model.dto;
+package ru.sshell.model.dto;
 
-import ru.vkr.model.TaskStatus;
+import ru.sshell.model.TaskStatus;
 
 /**
  * Транспортный объект для передачи онформации по id клиента, id задачи и статуу этой задачи

@@ -1,4 +1,4 @@
-package ru.vkr.config;
+package ru.sshell.config;
 
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;

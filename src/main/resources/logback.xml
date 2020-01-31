@@ -7,7 +7,7 @@
         </layout>
     </appender>
     <!-- Логгеры -->
-    <logger name="ru.vkr" level="DEBUG" />
+    <logger name="ru.sshell" level="DEBUG" />
 
     <!-- Корневой логгер -->
     <root level="INFO" >

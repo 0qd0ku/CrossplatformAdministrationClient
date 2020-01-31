@@ -1,4 +1,4 @@
-package ru.vkr.model.dto;
+package ru.sshell.model.dto;
 
 import java.util.List;
 

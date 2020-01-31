@@ -1,4 +1,4 @@
-package ru.vkr.model;
+package ru.sshell.model;
 
 /**
  * Типы архитектур операционных систем

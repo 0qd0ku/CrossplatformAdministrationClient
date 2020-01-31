@@ -1,7 +1,5 @@
-package ru.vkr;
+package ru.sshell;
 
-
-import java.io.File;
 
 public class testMain {
     public static void main(String[] args) {

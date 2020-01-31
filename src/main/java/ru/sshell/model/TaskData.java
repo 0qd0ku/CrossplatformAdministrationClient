@@ -1,4 +1,4 @@
-package ru.vkr.model;
+package ru.sshell.model;
 
 /**
  * Класс информации по задаче

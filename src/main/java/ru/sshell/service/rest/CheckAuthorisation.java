@@ -1,4 +1,4 @@
-package ru.vkr.service.rest;
+package ru.sshell.service.rest;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

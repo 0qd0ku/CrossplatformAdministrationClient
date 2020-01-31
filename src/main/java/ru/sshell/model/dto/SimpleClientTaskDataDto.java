@@ -1,4 +1,4 @@
-package ru.vkr.model.dto;
+package ru.sshell.model.dto;
 
 /**
  * Объект для передачи информации по id клинта и id задачи

@@ -1,4 +1,4 @@
-package ru.vkr.service;
+package ru.sshell.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import ru.vkr.model.TaskData;
-import ru.vkr.model.TaskStatus;
-import ru.vkr.model.dto.TaskPackDto;
-import ru.vkr.service.rest.RestService;
-import ru.vkr.util.ClientSystemInformationUtils;
+import ru.sshell.model.TaskData;
+import ru.sshell.model.TaskStatus;
+import ru.sshell.model.dto.TaskPackDto;
+import ru.sshell.service.rest.RestService;
+import ru.sshell.util.ClientSystemInformationUtils;
 
 import java.util.List;
 

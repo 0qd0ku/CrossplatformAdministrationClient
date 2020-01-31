@@ -1,16 +1,15 @@
-package ru.vkr.service;
+package ru.sshell.service;
 
 import com.turn.ttorrent.client.Client;
 import com.turn.ttorrent.client.SharedTorrent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.vkr.model.TaskData;
+import ru.sshell.model.TaskData;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Objects;

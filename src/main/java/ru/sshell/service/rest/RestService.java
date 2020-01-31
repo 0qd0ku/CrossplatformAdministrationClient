@@ -1,4 +1,4 @@
-package ru.vkr.service.rest;
+package ru.sshell.service.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,17 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import ru.vkr.model.ClientData;
-import ru.vkr.model.SessionData;
-import ru.vkr.model.TaskData;
-import ru.vkr.model.TaskStatus;
-import ru.vkr.model.dto.ClientTaskStatusDto;
-import ru.vkr.model.dto.SimpleClientTaskDataDto;
-import ru.vkr.model.dto.TaskPackDto;
-
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import ru.sshell.model.ClientData;
+import ru.sshell.model.SessionData;
+import ru.sshell.model.TaskData;
+import ru.sshell.model.TaskStatus;
+import ru.sshell.model.dto.ClientTaskStatusDto;
+import ru.sshell.model.dto.SimpleClientTaskDataDto;
+import ru.sshell.model.dto.TaskPackDto;
 
 
 @Service

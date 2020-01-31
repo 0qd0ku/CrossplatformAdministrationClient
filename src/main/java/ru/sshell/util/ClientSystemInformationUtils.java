@@ -1,10 +1,10 @@
-package ru.vkr.util;
+package ru.sshell.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.vkr.model.ClientData;
-import ru.vkr.model.OS;
-import ru.vkr.model.OSType;
+import ru.sshell.model.ClientData;
+import ru.sshell.model.OS;
+import ru.sshell.model.OSType;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

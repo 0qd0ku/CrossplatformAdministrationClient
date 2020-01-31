@@ -1,4 +1,4 @@
-package ru.vkr.service.rest;
+package ru.sshell.service.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
-import ru.vkr.model.SessionData;
+import ru.sshell.model.SessionData;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
